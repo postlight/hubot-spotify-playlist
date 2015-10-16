@@ -1,6 +1,6 @@
 # hubot-spotify-playlist
 
-Allows the ability to add/remove/findTracks to a Spotify Playlist.
+Allows the ability to add/remove/findTracks to a collaborative Spotify Playlist.
 
 See [`src/spotify-playlist.coffee`](src/spotify-playlist.coffee) for full documentation.
 
