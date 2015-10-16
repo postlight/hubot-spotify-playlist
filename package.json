@@ -1,7 +1,7 @@
 {
   "name": "hubot-spotify-playlist",
   "description": "Allows the ability to add/remove/findTracks to a Spotify Playlist.",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "author": "Kevin Ngao <kevgong@yahoo.com>",
   "license": "MIT",
 
@@ -9,11 +9,11 @@
 
   "repository": {
     "type": "git",
-    "url": "git://github.com/hubot-scripts/hubot-spotify-playlist.git"
+    "url": "git://github.com/postlight/hubot-spotify-playlist.git"
   },
 
   "bugs": {
-    "url": "https://github.com/hubot-scripts/hubot-spotify-playlist/issues"
+    "url": "https://github.com/postlight/hubot-spotify-playlist/issues"
   },
 
   "dependencies": {
