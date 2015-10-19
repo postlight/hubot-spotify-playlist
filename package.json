@@ -1,7 +1,7 @@
 {
   "name": "hubot-spotify-playlist",
   "description": "Allows the ability to add/remove/findTracks to a Spotify Playlist.",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "Kevin Ngao <kevgong@yahoo.com>",
   "license": "MIT",
 
