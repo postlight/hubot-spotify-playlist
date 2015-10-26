@@ -46,9 +46,6 @@ requestInitialTokens = (res, func) ->
       robot.brain.set 'access_token', response.access_token
       robot.brain.set 'refresh_token', response.refresh_token
       robot.brain.set 'expires', (new Date().getTime() + (response.expires_in * 1000))
-      res.send body
-      res.send response.access_token
-      res.send response.refresh_token
       func(res)
 
 refreshAccessToken = (res, func) ->
