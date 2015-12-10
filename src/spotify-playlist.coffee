@@ -103,8 +103,10 @@ findTrack = (res, token) ->
     .header('Accept', 'application/json')
     .get() (err, resp, body) =>
       response = JSON.parse body
+      string = ""
       for item in response.tracks.items
-        res.send "#{item.name} - #{item.artists[0].name} - #{item.album.name} - #{item.id}"
+        string = string + "#{item.name} - #{item.artists[0].name} - #{item.album.name} - #{item.id} \n"
+      res.send string
 
 module.exports = (robot) ->
 
