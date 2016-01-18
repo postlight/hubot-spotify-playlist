@@ -47,7 +47,7 @@ SPOTIFY_REDIRECT_URI
 ### Finding tracks
 
 ```sh
-hubot spotify find <query>
+hubot playlist find <query>
 ```
 
 Make note of the track ID you want to add so you can add/remove it in the next step.
@@ -56,6 +56,7 @@ Make note of the track ID you want to add so you can add/remove it in the next s
 Using the track id gotten from the last steps, you can either add or remove tracks.
 
 ```sh
-hubot spotify add <track_id>
-hubot spotify remove <track_id>
+hubot playlist add <query>
+hubot playlist addid <track_id>
+hubot playlist remove <track_id>
 ```
