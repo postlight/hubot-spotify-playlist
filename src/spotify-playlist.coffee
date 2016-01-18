@@ -90,17 +90,9 @@ findAndAddFirstTrack = (res, token) ->
     .header('Accept', 'application/json')
     .get() (err, resp, body) =>
       response = JSON.parse body
-      trackId = ""
       for item in response.tracks.items
-        trackId = item.id
-      res.http("https://api.spotify.com/v1/users/" + process.env.SPOTIFY_USER_ID + "/playlists/" + process.env.SPOTIFY_PLAYLIST_ID + "/tracks?uris=spotify%3Atrack%3A" + trackId)
-        .header("Authorization", "Bearer " + robot.brain.get('access_token'))
-        .header('Content-Type', 'application/json')
-        .header('Accept', 'application/json')
-        .post() (err, resp, body) =>
-          response = JSON.parse(body)
-          if response.snapshot_id
-            res.send "Track added"
+        res.match[1] = item.id
+      authorizeAppUser(res, addTrack)
 
 removeTrack = (res) ->
   data = JSON.stringify({
