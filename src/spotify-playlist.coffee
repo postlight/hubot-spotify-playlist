@@ -10,9 +10,10 @@
 #   SPOTIFY_REDIRECT_URI
 #
 # Commands:
-#   hubot spotify add <track_id> - Adds a track to the playlist
-#   hubot spotify remove <track_id>  - Removes a track on the playlist
-#   hubot spotify find <query> - go to that link to get a token
+#   hubot playlist add <query> - Adds first track in search to the playlist
+#   hubot playlist addid <track_id> - Adds a track to the playlist via ID
+#   hubot playlist remove <track_id>  - Removes a track on the playlist
+#   hubot playlist find <query> - go to that link to get a token
 #
 # Author:
 #   Kevin Ngao (kev5873) <kevgong@yahoo.com>
@@ -83,6 +84,16 @@ addTrack = (res) ->
       if response.snapshot_id
         res.send "Track added"
 
+findAndAddFirstTrack = (res, token) ->
+  res.http("https://api.spotify.com/v1/search?q=" + res.match[1] + "&type=track&market=US&limit=1")
+    .header("Authorization", "Bearer " + token)
+    .header('Accept', 'application/json')
+    .get() (err, resp, body) =>
+      response = JSON.parse body
+      for item in response.tracks.items
+        res.match[1] = item.id
+      authorizeAppUser(res, addTrack)
+
 removeTrack = (res) ->
   data = JSON.stringify({
     tracks: [
@@ -103,16 +114,21 @@ findTrack = (res, token) ->
     .header('Accept', 'application/json')
     .get() (err, resp, body) =>
       response = JSON.parse body
+      string = ""
       for item in response.tracks.items
-        res.send "#{item.name} - #{item.artists[0].name} - #{item.album.name} - #{item.id}"
+        string = string + "#{item.name} - #{item.artists[0].name} - #{item.album.name} - #{item.id} \n"
+      res.send string
 
 module.exports = (robot) ->
 
-  robot.hear /spotify add (.*)/i, (res) ->
+  robot.hear /playlist add (.*)/i, (res) ->
+    authorizeApp(res, findAndAddFirstTrack)
+
+  robot.hear /playlist addid (.*)/i, (res) ->
     authorizeAppUser(res, addTrack)
 
-  robot.hear /spotify remove (.*)/i, (res) ->
+  robot.hear /playlist remove (.*)/i, (res) ->
     authorizeAppUser(res, removeTrack)
 
-  robot.hear /spotify find (.*)/i, (res) ->
+  robot.hear /playlist find (.*)/i, (res) ->
     authorizeApp(res, findTrack)
