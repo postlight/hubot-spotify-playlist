@@ -1,7 +1,7 @@
 {
   "name": "hubot-spotify-playlist",
   "description": "Allows the ability to add/remove/find tracks to a Collaborative Spotify Playlist.",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": "Kevin Ngao <kevgong@yahoo.com>",
   "license": "MIT",
   "keywords": "hubot, hubot-scripts, spotify, playlist, playlists",
