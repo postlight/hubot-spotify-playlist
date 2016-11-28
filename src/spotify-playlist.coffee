@@ -75,7 +75,10 @@ authorizeAppUser = (res, func) ->
 # Spotify Web API Functions
 
 addTrack = (res) ->
-  res.http("https://api.spotify.com/v1/users/" + process.env.SPOTIFY_USER_ID + "/playlists/" + process.env.SPOTIFY_PLAYLIST_ID + "/tracks?uris=spotify%3Atrack%3A" + res.match[1])
+  playlist = process.env.SPOTIFY_PLAYLIST_ID
+  if res.match[2] !== null
+    playlist = res.match[2]
+  res.http("https://api.spotify.com/v1/users/" + process.env.SPOTIFY_USER_ID + "/playlists/" + playlist + "/tracks?uris=spotify%3Atrack%3A" + res.match[1])
     .header("Authorization", "Bearer " + robot.brain.get('access_token'))
     .header('Content-Type', 'application/json')
     .header('Accept', 'application/json')
@@ -121,14 +124,14 @@ findTrack = (res, token) ->
 
 module.exports = (robot) ->
 
-  robot.hear /playlist add (.*)/i, (res) ->
+  robot.listen /playlist add (.*)/i, (res) ->
     authorizeApp(res, findAndAddFirstTrack)
 
-  robot.hear /playlist addid (.*)/i, (res) ->
+  robot.listen /playlist addid (.*)/i, (res) ->
     authorizeAppUser(res, addTrack)
 
-  robot.hear /playlist remove (.*)/i, (res) ->
+  robot.listen /playlist remove (.*)/i, (res) ->
     authorizeAppUser(res, removeTrack)
 
-  robot.hear /playlist find (.*)/i, (res) ->
+  robot.listen /playlist find (.*)/i, (res) ->
     authorizeApp(res, findTrack)
