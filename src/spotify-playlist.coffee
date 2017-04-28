@@ -125,7 +125,7 @@ module.exports = (robot) ->
         res.send string
 
   robot.hear /playlist add (.*)/i, (res) ->
-    authorizeApp(res, findAndAddFirstTrack)
+    authorizeAppUser(res, findAndAddFirstTrack)
 
   robot.hear /playlist addid (.*)/i, (res) ->
     authorizeAppUser(res, addTrack)
