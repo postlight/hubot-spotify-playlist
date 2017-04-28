@@ -135,3 +135,6 @@ module.exports = (robot) ->
 
   robot.hear /playlist find (.*)/i, (res) ->
     authorizeApp(res, findTrack)
+
+  robot.hear /https:\/\/open\.spotify\.com\/track\/([a-zA-Z\d]+)\s*?/i, (res) ->
+    authorizeAppUser(res, addTrack)
