@@ -14,6 +14,7 @@
 #   hubot playlist addid <track_id> - Adds a track to the playlist via ID
 #   hubot playlist remove <track_id>  - Removes a track on the playlist
 #   hubot playlist find <query> - go to that link to get a token
+#   hubot playlist link - displays link to spotify playlist
 #
 # Author:
 #   Kevin Ngao (kev5873) <kevgong@yahoo.com>
@@ -124,17 +125,20 @@ module.exports = (robot) ->
           string = string + "#{item.name} - #{item.artists[0].name} - #{item.album.name} - #{item.id} \n"
         res.send string
 
-  robot.hear /playlist add (.*)/i, (res) ->
+  robot.respond /playlist add (.*)/i, (res) ->
     authorizeAppUser(res, findAndAddFirstTrack)
 
-  robot.hear /playlist addid (.*)/i, (res) ->
+  robot.respond /playlist addid (.*)/i, (res) ->
     authorizeAppUser(res, addTrack)
 
-  robot.hear /playlist remove (.*)/i, (res) ->
+  robot.respond /playlist remove (.*)/i, (res) ->
     authorizeAppUser(res, removeTrack)
 
-  robot.hear /playlist find (.*)/i, (res) ->
+  robot.respond /playlist find (.*)/i, (res) ->
     authorizeApp(res, findTrack)
 
   robot.hear /https:\/\/open\.spotify\.com\/track\/([a-zA-Z\d]+)\s*?/i, (res) ->
     authorizeAppUser(res, addTrack)
+
+  robot.respond /playlist link/i, (res) ->
+    res.send "https://open.spotify.com/user/#{process.env.SPOTIFY_USER_ID}/playlist/#{process.env.SPOTIFY_PLAYLIST_ID}"

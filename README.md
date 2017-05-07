@@ -44,6 +44,14 @@ SPOTIFY_REDIRECT_URI
 
 ## User Usage
 
+### Displaying Playlist Link
+
+```sh
+hubot playlist link
+```
+
+The link to the playlist will be displayed in chat.
+
 ### Finding tracks
 
 ```sh
