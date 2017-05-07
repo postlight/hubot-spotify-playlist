@@ -15,6 +15,7 @@
 #   hubot playlist remove <track_id>  - Removes a track on the playlist
 #   hubot playlist find <query> - go to that link to get a token
 #   hubot playlist link - displays link to spotify playlist
+#   hubot playlist listen <on|off|status> - controls whether it should be listening for spotify links to automatically add
 #
 # Author:
 #   Kevin Ngao (kev5873) <kevgong@yahoo.com>
@@ -22,6 +23,10 @@
 
 
 module.exports = (robot) ->
+
+  # init listen flag to false if none can be found
+  if (robot.brain.get('playlistListen') == null)
+    robot.brain.set 'playlistListen', false
 
   # Authorize app, only authorizes non-user specific functions for the app, like Searching.
   # See: https://developer.spotify.com/web-api/authorization-guide/#client_credentials_flow
@@ -137,8 +142,21 @@ module.exports = (robot) ->
   robot.respond /playlist find (.*)/i, (res) ->
     authorizeApp(res, findTrack)
 
+  robot.respond /playlist listen (on|off|status)/i, (res) ->
+    if (res.match[1] == "on")
+      robot.brain.set 'playlistListen', true
+      res.send "Now listening for spotify links!"
+    else if (res.match[1] == "off")
+      robot.brain.set 'playlistListen', false
+      res.send "No longer listening for spotify links."
+    else
+      listenStatus = robot.brain.get('playlistListen')
+      value = if listenStatus then "on" else "off"
+      res.send "Listening status: " + value
+
   robot.hear /https:\/\/open\.spotify\.com\/track\/([a-zA-Z\d]+)\s*?/i, (res) ->
-    authorizeAppUser(res, addTrack)
+    if (robot.brain.get('playlistListen'))
+      authorizeAppUser(res, addTrack)
 
   robot.respond /playlist link/i, (res) ->
     res.send "https://open.spotify.com/user/#{process.env.SPOTIFY_USER_ID}/playlist/#{process.env.SPOTIFY_PLAYLIST_ID}"

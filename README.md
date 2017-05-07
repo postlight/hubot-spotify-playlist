@@ -68,3 +68,12 @@ hubot playlist add <query>
 hubot playlist addid <track_id>
 hubot playlist remove <track_id>
 ```
+
+### Automatically Listening for Spotify Track Links
+Control whether spotify links shared in chat are automatically added to the playlist
+
+```sh
+hubot playlist listen status
+hubot playlist listen on
+hubot playlist listen off
+```
