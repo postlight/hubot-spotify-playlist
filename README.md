@@ -44,6 +44,14 @@ SPOTIFY_REDIRECT_URI
 
 ## User Usage
 
+### Displaying Playlist Link
+
+```sh
+hubot playlist link
+```
+
+The link to the playlist will be displayed in chat.
+
 ### Finding tracks
 
 ```sh
@@ -59,4 +67,13 @@ Using the track id gotten from the last steps, or just putting a query in add yo
 hubot playlist add <query>
 hubot playlist addid <track_id>
 hubot playlist remove <track_id>
+```
+
+### Automatically Listening for Spotify Track Links
+Control whether spotify links shared in chat are automatically added to the playlist
+
+```sh
+hubot playlist listen status
+hubot playlist listen on
+hubot playlist listen off
 ```
